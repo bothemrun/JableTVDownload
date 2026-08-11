@@ -2,12 +2,12 @@
 import requests
 from config import headers
 from bs4 import BeautifulSoup
-from selenium import webdriver
-
+from crawler import initWebDriver
 
 def movieLinks(url):
   links = []
-  dr = webdriver.Chrome()
+  dr = initWebDriver()
+
   dr.get(url)
   bs = BeautifulSoup(dr.page_source,"html.parser")
   a_tags = bs.select('div.img-box>a')
