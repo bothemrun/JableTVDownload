@@ -1,6 +1,7 @@
 # author: hcjohn463
 #!/usr/bin/env python
 # coding: utf-8
+import os
 from args import *
 from download import download
 from movies import movieLinks
@@ -18,7 +19,9 @@ elif(args.random == True):
 elif(args.all_urls != ""):
     all_urls = args.all_urls
     urls = movieLinks(all_urls)
+    cwd = os.getcwd()
     for url in urls:
+        os.chdir(cwd)
         download(url)
 else:
     # 使用者輸入Jable網址

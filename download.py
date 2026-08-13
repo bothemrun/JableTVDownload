@@ -5,14 +5,12 @@ import re
 import urllib.request
 import m3u8
 from config import headers
-from crawler import prepareCrawl
+from crawler import prepareCrawl, initWebDriver
 from merge import mergeMp4
 from encode import ffmpegEncode
 from delete import deleteM3u8, deleteMp4
 from cover import getCover
 from args import *
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 def download(url):
 
@@ -28,13 +26,7 @@ def download(url):
   folderPath = os.path.join(os.getcwd(), dirName)
   
   #配置Selenium參數
-  options = Options()
-  options.add_argument('--no-sandbox')
-  options.add_argument('--disable-dev-shm-usage')
-  options.add_argument('--disable-extensions')
-  options.add_argument('--headless')
-  options.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36")
-  dr = webdriver.Chrome(options=options)
+  dr = initWebDriver()
   dr.get(url)
   result = re.search("https://.+m3u8", dr.page_source)
   print(f'result: {result}')

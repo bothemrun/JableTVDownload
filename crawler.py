@@ -8,6 +8,18 @@ import copy
 import threading
 from tqdm import tqdm
 from Crypto.Cipher import AES
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+def initWebDriver():
+    options = Options()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--headless')
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36")
+    dr = webdriver.Chrome(options=options)
+    return dr
 
 
 def scrape(ci_params, folderPath, pbar, lock, session, urls):
